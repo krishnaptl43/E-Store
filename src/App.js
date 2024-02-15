@@ -5,6 +5,7 @@ import NavBar from './components/NavBar';
 import TopBar from './components/TopBar';
 import MainSlider from './components/sections/MainSlider';
 import HomePage from './pages/HomePage';
+import ProductsPage from './pages/ProductsPage';
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
    <TopBar/>
    <NavBar/>
    <BottomBar/>
-   <HomePage/>
+   <ProductsPage/>
    <Footer/>
    </>
   );
