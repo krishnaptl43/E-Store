@@ -1,20 +1,21 @@
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import BottomBar from './components/BottomBar';
-import Footer from './components/Footer';
-import NavBar from './components/NavBar';
-import TopBar from './components/TopBar';
-import MainSlider from './components/sections/MainSlider';
+import Layout from './components/Layout';
 import HomePage from './pages/HomePage';
-import ProductsPage from './pages/ProductsPage';
+import ProductsPage from './pages/productPage/ProductsPage';
+import ProductDetailsPage from './pages/productDetails/ProductDetailsPage';
+
 
 function App() {
   return (
    <>
-   <TopBar/>
-   <NavBar/>
-   <BottomBar/>
-   <ProductsPage/>
-   <Footer/>
+  <Routes>
+    <Route path='/' element={<Layout/>}>
+     <Route index element={<HomePage/>}/>
+     <Route path='product' element={<ProductsPage/>}/>
+     <Route path='productdetails' element={<ProductDetailsPage/>}/>
+    </Route>
+  </Routes>
    </>
   );
 }

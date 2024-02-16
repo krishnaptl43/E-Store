@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function NavBar() {
     return (
         <>
@@ -5,9 +7,9 @@ export default function NavBar() {
             <div className="nav">
                 <div className="container-fluid">
                     <nav className="navbar navbar-expand-md bg-dark navbar-dark">
-                        <a href="#" className="navbar-brand">
+                        <Link to="#" className="navbar-brand">
                             MENU
-                        </a>
+                        </Link>
                         <button
                             type="button"
                             className="navbar-toggler"
@@ -21,61 +23,61 @@ export default function NavBar() {
                             id="navbarCollapse"
                         >
                             <div className="navbar-nav mr-auto">
-                                <a href="index.html" className="nav-item nav-link active">
+                                <Link to="/" className="nav-item nav-link active">
                                     Home
-                                </a>
-                                <a href="product-list.html" className="nav-item nav-link">
+                                </Link>
+                                <Link to="/product" className="nav-item nav-link">
                                     Products
-                                </a>
-                                <a href="product-detail.html" className="nav-item nav-link">
+                                </Link>
+                                <Link to="/productdetails" className="nav-item nav-link">
                                     Product Detail
-                                </a>
-                                <a href="cart.html" className="nav-item nav-link">
+                                </Link>
+                                <Link to="cart.html" className="nav-item nav-link">
                                     Cart
-                                </a>
-                                <a href="checkout.html" className="nav-item nav-link">
+                                </Link>
+                                <Link to="checkout.html" className="nav-item nav-link">
                                     Checkout
-                                </a>
-                                <a href="my-account.html" className="nav-item nav-link">
+                                </Link>
+                                <Link to="my-account.html" className="nav-item nav-link">
                                     My Account
-                                </a>
+                                </Link>
                                 <div className="nav-item dropdown">
-                                    <a
-                                        href="#"
+                                    <Link
+                                        to="#"
                                         className="nav-link dropdown-toggle"
                                         data-toggle="dropdown"
                                     >
                                         More Pages
-                                    </a>
+                                    </Link>
                                     <div className="dropdown-menu">
-                                        <a href="wishlist.html" className="dropdown-item">
+                                        <Link to="wishlist.html" className="dropdown-item">
                                             Wishlist
-                                        </a>
-                                        <a href="login.html" className="dropdown-item">
+                                        </Link>
+                                        <Link to="login.html" className="dropdown-item">
                                             Login &amp; Register
-                                        </a>
-                                        <a href="contact.html" className="dropdown-item">
+                                        </Link>
+                                        <Link to="contact.html" className="dropdown-item">
                                             Contact Us
-                                        </a>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
                             <div className="navbar-nav ml-auto">
                                 <div className="nav-item dropdown">
-                                    <a
-                                        href="#"
+                                    <Link
+                                        to="#"
                                         className="nav-link dropdown-toggle"
                                         data-toggle="dropdown"
                                     >
                                         User Account
-                                    </a>
+                                    </Link>
                                     <div className="dropdown-menu">
-                                        <a href="#" className="dropdown-item">
+                                        <Link to="#" className="dropdown-item">
                                             Login
-                                        </a>
-                                        <a href="#" className="dropdown-item">
+                                        </Link>
+                                        <Link to="#" className="dropdown-item">
                                             Register
-                                        </a>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
