@@ -32,13 +32,13 @@ export default function NavBar() {
                                 <Link to="/productdetails" className="nav-item nav-link">
                                     Product Detail
                                 </Link>
-                                <Link to="cart.html" className="nav-item nav-link">
+                                <Link to="/cart" className="nav-item nav-link">
                                     Cart
                                 </Link>
-                                <Link to="checkout.html" className="nav-item nav-link">
+                                <Link to="/checkout" className="nav-item nav-link">
                                     Checkout
                                 </Link>
-                                <Link to="my-account.html" className="nav-item nav-link">
+                                <Link to="/my-account" className="nav-item nav-link">
                                     My Account
                                 </Link>
                                 <div className="nav-item dropdown">
@@ -50,13 +50,13 @@ export default function NavBar() {
                                         More Pages
                                     </Link>
                                     <div className="dropdown-menu">
-                                        <Link to="wishlist.html" className="dropdown-item">
+                                        <Link to="/wishlist" className="dropdown-item">
                                             Wishlist
                                         </Link>
-                                        <Link to="login.html" className="dropdown-item">
+                                        <Link to="/login" className="dropdown-item">
                                             Login &amp; Register
                                         </Link>
-                                        <Link to="contact.html" className="dropdown-item">
+                                        <Link to="/contact" className="dropdown-item">
                                             Contact Us
                                         </Link>
                                     </div>
