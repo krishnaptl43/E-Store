@@ -1,11 +1,11 @@
 import BreadCrumb from "../../components/BreadCrumb";
 import ProductLists from "../../components/sections/ProductLists";
 
-export default function ProductsPage() {
+export default function ProductsPage({product}) {
   return (
     <>
     <BreadCrumb/>
-    <ProductLists/>
+    <ProductLists product={product}/>
     </>
   )
 }

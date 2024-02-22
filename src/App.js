@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes} from 'react-router-dom';
 import './App.css';
 import Layout from './components/Layout';
 import HomePage from './pages/HomePage';
@@ -15,37 +15,39 @@ import { useEffect, useState } from 'react';
 
 
 function App() {
-const[allProducts,setAllProducts] = useState()
-useEffect(()=>{
-  const requestOptions = {
-    method: "GET",
-    redirect: "follow"
-  };
-  
-  fetch("https://dummyjson.com/products", requestOptions)
-    .then((response) => response.json())
-    .then((result) => setAllProducts(result))
-    .catch((error) => console.error(error));
-},[])
+  const [allProducts, setAllProducts] = useState()
 
-console.log(allProducts);
+  function apiCall() {
+    fetch("https://dummyjson.com/products", {
+      method: "GET",
+      headers: {
+        "Accept": "*/*"
+      },
+    }).then((data) =>data.json()).then((data) => { setAllProducts(data) }).catch((e) => { console.log(e) })
+  }
+
+  useEffect(()=>{
+    apiCall()
+  },[])
+
+  console.log(allProducts);
   return (
-   <>
-  <Routes>
-    <Route path='/' element={<Layout/>}>
-     <Route index element={<HomePage/>}/>
-     <Route path='product' element={<ProductsPage/>}/>
-     <Route path='productdetails' element={<ProductDetailsPage/>}/>
-     <Route path='/cart' element={<CartPage/>}/>
-     <Route path='/wishlist' element={<WishListPage/>}/>
-     <Route path='/checkout' element={<CheckOutPage/>}/>
-     <Route path='/my-account' element={<MyAccountPage/>}/>
-     <Route path='/login' element={<LoginPage/>}/>
-     <Route path='/contact' element={<ContactUsPage/>}/>
-     <Route path='/signup' element={<SignUpPage/>}/>
-    </Route>
-  </Routes>
-   </>
+    <>
+      <Routes>
+        <Route path='/' element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path='product' element={<ProductsPage product={allProducts} />} />
+          <Route path='productdetails' element={<ProductDetailsPage />} />
+          <Route path='/cart' element={<CartPage />} />
+          <Route path='/wishlist' element={<WishListPage />} />
+          <Route path='/checkout' element={<CheckOutPage />} />
+          <Route path='/my-account' element={<MyAccountPage />} />
+          <Route path='/login' element={<LoginPage />} />
+          <Route path='/contact' element={<ContactUsPage />} />
+          <Route path='/signup' element={<SignUpPage />} />
+        </Route>
+      </Routes>
+    </>
   );
 }
 
