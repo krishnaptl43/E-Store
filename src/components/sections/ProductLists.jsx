@@ -1,5 +1,16 @@
+import { useState } from "react";
+import { getFilter } from "../../helper/helper";
+
 export default function ProductLists({product}) {
     const {products} = (product && product)?product:[];
+    const {category,brand} = getFilter(products)
+    const [filterData,setFilterData] = useState()
+
+    function filterCategories(cate){
+      let arr = products?.filter((item)=>item.category===cate)
+      setFilterData(arr)
+    }
+
     return (
         <>
             {/*   Product List Start  */}
@@ -52,7 +63,7 @@ export default function ProductLists({product}) {
                                     </div>
                                 </div>
 
-                                {products?.map((item,index)=>(
+                                {((filterData && filterData)?filterData:products)?.map((item,index)=>(
                                     <div className="col-md-4" key={index}>
                                     <div className="product-item">
                                         <div className="product-title">
@@ -67,7 +78,7 @@ export default function ProductLists({product}) {
                                         </div>
                                         <div className="product-image">
                                             <a href="product-detail.html">
-                                                <img src={item?.thumbnail} alt="Product Image" />
+                                                <img src={item?.thumbnail} style={{height:"160px",width:"100%"}} alt="Product Image" />
                                             </a>
                                             <div className="product-action">
                                                 <a href="#"><i className="fa fa-cart-plus"></i></a>
@@ -110,21 +121,11 @@ export default function ProductLists({product}) {
                                 <h2 className="title">Category</h2>
                                 <nav className="navbar bg-light">
                                     <ul className="navbar-nav">
-                                        <li className="nav-item">
-                                            <a className="nav-link" href="#"><i className="fa fa-female"></i>Fashion & Beauty</a>
+                                        {category && category.map((item,index)=>(
+                                            <li className="nav-item" onClick={()=>{filterCategories(item)}} key={index}>
+                                            <a className="nav-link" href="#"><i className="fa fa-female"></i>{item}</a>
                                         </li>
-                                        <li className="nav-item">
-                                            <a className="nav-link" href="#"><i className="fa fa-child"></i>Kids & Babies Clothes</a>
-                                        </li>
-                                        <li className="nav-item">
-                                            <a className="nav-link" href="#"><i className="fa fa-tshirt"></i>Men & Women Clothes</a>
-                                        </li>
-                                        <li className="nav-item">
-                                            <a className="nav-link" href="#"><i className="fa fa-mobile-alt"></i>Gadgets & Accessories</a>
-                                        </li>
-                                        <li className="nav-item">
-                                            <a className="nav-link" href="#"><i className="fa fa-microchip"></i>Electronics & Accessories</a>
-                                        </li>
+                                        ))}
                                     </ul>
                                 </nav>
                             </div>
@@ -215,12 +216,9 @@ export default function ProductLists({product}) {
                             <div className="sidebar-widget brands">
                                 <h2 className="title">Our Brands</h2>
                                 <ul>
-                                    <li><a href="#">Nulla </a><span>(45)</span></li>
-                                    <li><a href="#">Curabitur </a><span>(34)</span></li>
-                                    <li><a href="#">Nunc </a><span>(67)</span></li>
-                                    <li><a href="#">Ullamcorper</a><span>(74)</span></li>
-                                    <li><a href="#">Fusce </a><span>(89)</span></li>
-                                    <li><a href="#">Sagittis</a><span>(28)</span></li>
+                                    {brand && brand.map((item,index)=>(
+                                        <li key={index}><a href="#">{item}</a><span>(45)</span></li>
+                                    ))}
                                 </ul>
                             </div>
 
