@@ -8,7 +8,7 @@ export default function BottomBar() {
                         <div className="col-md-3">
                             <div className="logo">
                                 <a href="index.html">
-                                    <img src="img/logo.png" alt="Logo" />
+                                    <img src={`${window.location.origin}/img/logo.png`} alt="Logo" />
                                 </a>
                             </div>
                         </div>

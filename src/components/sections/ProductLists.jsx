@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { getFilter } from "../../helper/helper";
+import { Link } from "react-router-dom";
 
 export default function ProductLists({product}) {
     const {products} = (product && product)?product:[];
@@ -88,7 +89,7 @@ export default function ProductLists({product}) {
                                         </div>
                                         <div className="product-price">
                                             <h3><span>$</span>{item?.price}</h3>
-                                            <a className="btn" href=""><i className="fa fa-shopping-cart"></i>Buy Now</a>
+                                            <Link className="btn" to={`/productdetails/${item.id}`}><i className="fa fa-shopping-cart"></i>Buy Now</Link>
                                         </div>
                                     </div>
                                 </div>

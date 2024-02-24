@@ -29,9 +29,6 @@ export default function NavBar() {
                                 <Link to="/product" className="nav-item nav-link">
                                     Products
                                 </Link>
-                                <Link to="/productdetails" className="nav-item nav-link">
-                                    Product Detail
-                                </Link>
                                 <Link to="/cart" className="nav-item nav-link">
                                     Cart
                                 </Link>

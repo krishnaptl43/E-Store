@@ -1,6 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom';
 
 export default function ProductDetailsPage() {
+  const {id} = useParams()
+  const[productDetail,setProductDetail] = useState()
+
+  async function callApi(id){
+    try {
+      let response = await fetch(`https://dummyjson.com/products/${id}`)
+      response = await response.json()
+      if(response){
+        setProductDetail(response)
+        console.log(response);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  useEffect(()=>{
+    callApi(id)
+  },[id])
+
   return (
     <>
       {/* Product Detail Start */}
@@ -12,14 +33,17 @@ export default function ProductDetailsPage() {
                 <div className="row align-items-center">
                   <div className="col-md-5">
                     <div className="product-slider-single normal-slider">
-                      <img src="img/product-1.jpg" alt="Product Image" />
+                      <img src={productDetail?.thumbnail} alt="Product Image" />
                       {/* <img src="img/product-3.jpg" alt="Product Image" />
                       <img src="img/product-5.jpg" alt="Product Image" />
                       <img src="img/product-7.jpg" alt="Product Image" />
                       <img src="img/product-9.jpg" alt="Product Image" />
                       <img src="img/product-10.jpg" alt="Product Image" /> */}
                     </div>
-                    <div className="product-slider-single-nav normal-slider">
+                    <div className="product-slider-single-nav normal-slider d-flex">
+                      {productDetail?.images?.map((item,index)=>(
+                        <img src={item} alt="Product Image" height={"70px"} width={"70px"} />
+                      ))}
                       {/* <div className="slider-nav-img">
                         <img src="img/product-1.jpg" alt="Product Image" />
                       </div> */}
@@ -43,7 +67,7 @@ export default function ProductDetailsPage() {
                   <div className="col-md-7">
                     <div className="product-content">
                       <div className="title">
-                        <h2>Product Name</h2>
+                        <h2>{productDetail?.title}</h2>
                       </div>
                       <div className="ratting">
                         <i className="fa fa-star" />
@@ -55,7 +79,13 @@ export default function ProductDetailsPage() {
                       <div className="price">
                         <h4>Price:</h4>
                         <p>
-                          $99 <span>$149</span>
+                          ${productDetail?.price} <span>$149</span>
+                        </p>
+                      </div>
+                      <div className="price">
+                        <h4>Stock:</h4>
+                        <p>
+                          {productDetail?.stock} left
                         </p>
                       </div>
                       <div className="quantity">
