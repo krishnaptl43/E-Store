@@ -11,6 +11,11 @@ export default function ProductLists({product}) {
       let arr = products?.filter((item)=>item.category===cate)
       setFilterData(arr)
     }
+    // search each product by its name
+    function search(value){
+        let data = products?.filter((item)=>item.title.toLowerCase().includes(value.toLowerCase()))
+        setFilterData(data)
+    }
 
     return (
         <>
@@ -25,7 +30,7 @@ export default function ProductLists({product}) {
                                         <div className="row">
                                             <div className="col-md-4">
                                                 <div className="product-search">
-                                                    <input type="email" />
+                                                    <input type="text" onChange={(e)=>{search(e.target.value)}} />
                                                     <button><i className="fa fa-search"></i></button>
                                                 </div>
                                             </div>

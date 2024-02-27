@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
-export default function ProductDetailsPage() {
+export default function ProductDetailsPage({product}) {
+  const {products} = (product && product)?product:[];
   const {id} = useParams()
   const[productDetail,setProductDetail] = useState()
+  const [relatedProducts,setRelatedProducts] = useState()
 
   async function callApi(id){
     try {
@@ -11,7 +13,7 @@ export default function ProductDetailsPage() {
       response = await response.json()
       if(response){
         setProductDetail(response)
-        console.log(response);
+        // console.log(response);
       }
     } catch (error) {
       console.log(error.message);
@@ -20,6 +22,11 @@ export default function ProductDetailsPage() {
 
   useEffect(()=>{
     callApi(id)
+  },[id])
+
+  useEffect(()=>{
+    let data = products?.filter((item)=>item.category===productDetail?.category || item.id !==productDetail?.id)
+    setRelatedProducts(data)
   },[id])
 
   return (
@@ -42,7 +49,7 @@ export default function ProductDetailsPage() {
                     </div>
                     <div className="product-slider-single-nav normal-slider d-flex">
                       {productDetail?.images?.map((item,index)=>(
-                        <img src={item} alt="Product Image" height={"70px"} width={"70px"} />
+                        <img src={item} alt="Product Image" height={"70px"} width={"70px"} key={index} />
                       ))}
                       {/* <div className="slider-nav-img">
                         <img src="img/product-1.jpg" alt="Product Image" />
@@ -176,18 +183,7 @@ export default function ProductDetailsPage() {
                     <div id="description" className="container tab-pane active">
                       <h4>Product description</h4>
                       <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
-                        condimentum quam ac mi viverra dictum. In efficitur ipsum
-                        diam, at dignissim lorem tempor in. Vivamus tempor hendrerit
-                        finibus. Nulla tristique viverra nisl, sit amet bibendum
-                        ante suscipit non. Praesent in faucibus tellus, sed gravida
-                        lacus. Vivamus eu diam eros. Aliquam et sapien eget arcu
-                        rhoncus scelerisque. Suspendisse sit amet neque neque.
-                        Praesent suscipit et magna eu iaculis. Donec arcu libero,
-                        commodo ac est a, malesuada finibus dolor. Aenean in ex eu
-                        velit semper fermentum. In leo dui, aliquet sit amet
-                        eleifend sit amet, varius in turpis. Maecenas fermentum ut
-                        ligula at consectetur. Nullam et tortor leo.
+                       {productDetail?.description}
                       </p>
                     </div>
                     <div id="specification" className="container tab-pane fade">
@@ -251,10 +247,11 @@ export default function ProductDetailsPage() {
                   <h1>Related Products</h1>
                 </div>
                 <div className="row align-items-center gap-2">
-                  <div className="col-lg-3">
+                  {relatedProducts && relatedProducts?.map((item,index)=>(
+                    <div className="col-lg-3" key={index}>
                     <div className="product-item">
                       <div className="product-title">
-                        <a href="#">Product Name</a>
+                        <a href="#">{item.title}</a>
                         <div className="ratting">
                           <i className="fa fa-star" />
                           <i className="fa fa-star" />
@@ -265,7 +262,7 @@ export default function ProductDetailsPage() {
                       </div>
                       <div className="product-image">
                         <a href="product-detail.html">
-                          <img src="img/product-10.jpg" alt="Product Image" />
+                          <img src={item.thumbnail} alt="Product Image" />
                         </a>
                         <div className="product-action">
                           <a href="#">
@@ -281,171 +278,16 @@ export default function ProductDetailsPage() {
                       </div>
                       <div className="product-price">
                         <h3>
-                          <span>$</span>99
+                          <span>$</span>{item.price}
                         </h3>
-                        <a className="btn" href="">
+                        <Link className="btn" to={`/productdetails/${item.id}`}>
                           <i className="fa fa-shopping-cart" />
                           Buy Now
-                        </a>
+                        </Link>
                       </div>
                     </div>
                   </div>
-                  <div className="col-lg-3">
-                    <div className="product-item">
-                      <div className="product-title">
-                        <a href="#">Product Name</a>
-                        <div className="ratting">
-                          <i className="fa fa-star" />
-                          <i className="fa fa-star" />
-                          <i className="fa fa-star" />
-                          <i className="fa fa-star" />
-                          <i className="fa fa-star" />
-                        </div>
-                      </div>
-                      <div className="product-image">
-                        <a href="product-detail.html">
-                          <img src="img/product-8.jpg" alt="Product Image" />
-                        </a>
-                        <div className="product-action">
-                          <a href="#">
-                            <i className="fa fa-cart-plus" />
-                          </a>
-                          <a href="#">
-                            <i className="fa fa-heart" />
-                          </a>
-                          <a href="#">
-                            <i className="fa fa-search" />
-                          </a>
-                        </div>
-                      </div>
-                      <div className="product-price">
-                        <h3>
-                          <span>$</span>99
-                        </h3>
-                        <a className="btn" href="">
-                          <i className="fa fa-shopping-cart" />
-                          Buy Now
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-lg-3">
-                    <div className="product-item">
-                      <div className="product-title">
-                        <a href="#">Product Name</a>
-                        <div className="ratting">
-                          <i className="fa fa-star" />
-                          <i className="fa fa-star" />
-                          <i className="fa fa-star" />
-                          <i className="fa fa-star" />
-                          <i className="fa fa-star" />
-                        </div>
-                      </div>
-                      <div className="product-image">
-                        <a href="product-detail.html">
-                          <img src="img/product-6.jpg" alt="Product Image" />
-                        </a>
-                        <div className="product-action">
-                          <a href="#">
-                            <i className="fa fa-cart-plus" />
-                          </a>
-                          <a href="#">
-                            <i className="fa fa-heart" />
-                          </a>
-                          <a href="#">
-                            <i className="fa fa-search" />
-                          </a>
-                        </div>
-                      </div>
-                      <div className="product-price">
-                        <h3>
-                          <span>$</span>99
-                        </h3>
-                        <a className="btn" href="">
-                          <i className="fa fa-shopping-cart" />
-                          Buy Now
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-lg-3">
-                    <div className="product-item">
-                      <div className="product-title">
-                        <a href="#">Product Name</a>
-                        <div className="ratting">
-                          <i className="fa fa-star" />
-                          <i className="fa fa-star" />
-                          <i className="fa fa-star" />
-                          <i className="fa fa-star" />
-                          <i className="fa fa-star" />
-                        </div>
-                      </div>
-                      <div className="product-image">
-                        <a href="product-detail.html">
-                          <img src="img/product-4.jpg" alt="Product Image" />
-                        </a>
-                        <div className="product-action">
-                          <a href="#">
-                            <i className="fa fa-cart-plus" />
-                          </a>
-                          <a href="#">
-                            <i className="fa fa-heart" />
-                          </a>
-                          <a href="#">
-                            <i className="fa fa-search" />
-                          </a>
-                        </div>
-                      </div>
-                      <div className="product-price">
-                        <h3>
-                          <span>$</span>99
-                        </h3>
-                        <a className="btn" href="">
-                          <i className="fa fa-shopping-cart" />
-                          Buy Now
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-lg-3 mt-3">
-                    <div className="product-item">
-                      <div className="product-title">
-                        <a href="#">Product Name</a>
-                        <div className="ratting">
-                          <i className="fa fa-star" />
-                          <i className="fa fa-star" />
-                          <i className="fa fa-star" />
-                          <i className="fa fa-star" />
-                          <i className="fa fa-star" />
-                        </div>
-                      </div>
-                      <div className="product-image">
-                        <a href="product-detail.html">
-                          <img src="img/product-2.jpg" alt="Product Image" />
-                        </a>
-                        <div className="product-action">
-                          <a href="#">
-                            <i className="fa fa-cart-plus" />
-                          </a>
-                          <a href="#">
-                            <i className="fa fa-heart" />
-                          </a>
-                          <a href="#">
-                            <i className="fa fa-search" />
-                          </a>
-                        </div>
-                      </div>
-                      <div className="product-price">
-                        <h3>
-                          <span>$</span>99
-                        </h3>
-                        <a className="btn" href="">
-                          <i className="fa fa-shopping-cart" />
-                          Buy Now
-                        </a>
-                      </div>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             </div>
