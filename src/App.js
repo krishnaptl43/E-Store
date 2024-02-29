@@ -12,10 +12,12 @@ import LoginPage from './pages/LoginPage';
 import ContactUsPage from './pages/contactPage/ContactUsPage';
 import SignUpPage from './pages/SignUpPage';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 
 function App() {
   const [allProducts, setAllProducts] = useState()
+  let str = useSelector((state)=>state.strData.value)
 
   function apiCall() {
     fetch("https://dummyjson.com/products", {
@@ -33,6 +35,7 @@ function App() {
   // console.log(allProducts);
   return (
     <>
+     <h1>{str}</h1>
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route index element={<HomePage />} />

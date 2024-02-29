@@ -25,9 +25,9 @@ export default function ProductDetailsPage({product}) {
   },[id])
 
   useEffect(()=>{
-    let data = products?.filter((item)=>item.category===productDetail?.category || item.id !==productDetail?.id)
+    let data = products?.filter((item)=>item.category===productDetail?.category && item.id !==productDetail?.id)
     setRelatedProducts(data)
-  },[id])
+  },[productDetail])
 
   return (
     <>
