@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { getFilter } from "../../helper/helper";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { AddToCard } from "../../redux/cartSlice";
 
 export default function ProductLists({product}) {
+    const dispatch = useDispatch()
     const {products} = (product && product)?product:[];
     const {category,brand} = getFilter(products)
     const [filterData,setFilterData] = useState()
@@ -87,7 +90,7 @@ export default function ProductLists({product}) {
                                                 <img src={item?.thumbnail} style={{height:"160px",width:"100%"}} alt="Product Image" />
                                             </a>
                                             <div className="product-action">
-                                                <a href="#"><i className="fa fa-cart-plus"></i></a>
+                                                <Link  onClick={()=>{dispatch(AddToCard(item))}}><i className="fa fa-cart-plus"></i></Link>
                                                 <a href="#"><i className="fa fa-heart"></i></a>
                                                 <a href="#"><i className="fa fa-search"></i></a>
                                             </div>

@@ -9,12 +9,8 @@ const slice = createSlice({
         AddData : (state,action)=>{
           state.value = action.payload
         },
-        // FilterData : ()=>{
-
-        // }
     }
 })
  
 export const {AddData} = slice.actions;
 export default slice.reducer;
-

@@ -12,10 +12,12 @@ import LoginPage from './pages/LoginPage';
 import ContactUsPage from './pages/contactPage/ContactUsPage';
 import SignUpPage from './pages/SignUpPage';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { AddData } from './redux/strSlice';
 
 
 function App() {
+   const dispatch = useDispatch()
   const [allProducts, setAllProducts] = useState()
   let str = useSelector((state)=>state.strData.value)
 
@@ -36,6 +38,7 @@ function App() {
   return (
     <>
      <h1>{str}</h1>
+     <input type='text' placeholder='enter your task' onChange={(e)=>{dispatch(AddData(e.target.value))}}/>
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route index element={<HomePage />} />

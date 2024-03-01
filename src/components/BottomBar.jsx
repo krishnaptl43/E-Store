@@ -1,4 +1,7 @@
+import { useSelector } from "react-redux"
+
 export default function BottomBar() {
+   const cartCount = useSelector((store)=>store.cartData.value)
     return (
         <>
             {/* Bottom Bar Start */}
@@ -28,7 +31,7 @@ export default function BottomBar() {
                                 </a>
                                 <a href="cart.html" className="btn cart">
                                     <i className="fa fa-shopping-cart" />
-                                    <span>(0)</span>
+                                    <span>({cartCount.length})</span>
                                 </a>
                             </div>
                         </div>
