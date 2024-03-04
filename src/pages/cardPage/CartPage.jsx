@@ -1,6 +1,10 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { DeleteItemToCart } from '../../redux/cartSlice'
 
 export default function CartPage() {
+  const dispatch = useDispatch()
+  let CartData = useSelector((store)=>store.cartData.value)
   return (
     <>
       {/* Cart Start */}
@@ -21,16 +25,17 @@ export default function CartPage() {
                       </tr>
                     </thead>
                     <tbody className="align-middle">
-                      <tr>
+                      {CartData && CartData.map((item,index)=>(
+                        <tr key={index}>
                         <td>
                           <div className="img">
                             <a href="#">
-                              <img src="img/product-1.jpg" alt="Image" />
+                              <img src={item?.thumbnail} alt="Image" />
                             </a>
-                            <p>Product Name</p>
+                            <p>{item?.title}</p>
                           </div>
                         </td>
-                        <td>$99</td>
+                        <td>${item?.price}</td>
                         <td>
                           <div className="qty">
                             <button className="btn-minus">
@@ -42,125 +47,14 @@ export default function CartPage() {
                             </button>
                           </div>
                         </td>
-                        <td>$99</td>
+                        <td>${item?.price}</td>
                         <td>
-                          <button>
+                          <button onClick={()=>{dispatch(DeleteItemToCart(item.id))}}>
                             <i className="fa fa-trash" />
                           </button>
                         </td>
                       </tr>
-                      <tr>
-                        <td>
-                          <div className="img">
-                            <a href="#">
-                              <img src="img/product-2.jpg" alt="Image" />
-                            </a>
-                            <p>Product Name</p>
-                          </div>
-                        </td>
-                        <td>$99</td>
-                        <td>
-                          <div className="qty">
-                            <button className="btn-minus">
-                              <i className="fa fa-minus" />
-                            </button>
-                            <input type="text" defaultValue={1} />
-                            <button className="btn-plus">
-                              <i className="fa fa-plus" />
-                            </button>
-                          </div>
-                        </td>
-                        <td>$99</td>
-                        <td>
-                          <button>
-                            <i className="fa fa-trash" />
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div className="img">
-                            <a href="#">
-                              <img src="img/product-3.jpg" alt="Image" />
-                            </a>
-                            <p>Product Name</p>
-                          </div>
-                        </td>
-                        <td>$99</td>
-                        <td>
-                          <div className="qty">
-                            <button className="btn-minus">
-                              <i className="fa fa-minus" />
-                            </button>
-                            <input type="text" defaultValue={1} />
-                            <button className="btn-plus">
-                              <i className="fa fa-plus" />
-                            </button>
-                          </div>
-                        </td>
-                        <td>$99</td>
-                        <td>
-                          <button>
-                            <i className="fa fa-trash" />
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div className="img">
-                            <a href="#">
-                              <img src="img/product-4.jpg" alt="Image" />
-                            </a>
-                            <p>Product Name</p>
-                          </div>
-                        </td>
-                        <td>$99</td>
-                        <td>
-                          <div className="qty">
-                            <button className="btn-minus">
-                              <i className="fa fa-minus" />
-                            </button>
-                            <input type="text" defaultValue={1} />
-                            <button className="btn-plus">
-                              <i className="fa fa-plus" />
-                            </button>
-                          </div>
-                        </td>
-                        <td>$99</td>
-                        <td>
-                          <button>
-                            <i className="fa fa-trash" />
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div className="img">
-                            <a href="#">
-                              <img src="img/product-5.jpg" alt="Image" />
-                            </a>
-                            <p>Product Name</p>
-                          </div>
-                        </td>
-                        <td>$99</td>
-                        <td>
-                          <div className="qty">
-                            <button className="btn-minus">
-                              <i className="fa fa-minus" />
-                            </button>
-                            <input type="text" defaultValue={1} />
-                            <button className="btn-plus">
-                              <i className="fa fa-plus" />
-                            </button>
-                          </div>
-                        </td>
-                        <td>$99</td>
-                        <td>
-                          <button>
-                            <i className="fa fa-trash" />
-                          </button>
-                        </td>
-                      </tr>
+                      ))}
                     </tbody>
                   </table>
                 </div>
@@ -180,7 +74,7 @@ export default function CartPage() {
                       <div className="cart-content">
                         <h1>Cart Summary</h1>
                         <p>
-                          Sub Total<span>$99</span>
+                          Sub Total<span>${CartData?.reduce((current,item)=>current+item?.price,0)}</span>
                         </p>
                         <p>
                           Shipping Cost<span>$1</span>

@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
+import { AddToCard } from '../../redux/cartSlice';
 
 export default function ProductDetailsPage({product}) {
+  const dispatch = useDispatch()
   const {products} = (product && product)?product:[];
   const {id} = useParams()
   const[productDetail,setProductDetail] = useState()
   const [relatedProducts,setRelatedProducts] = useState()
 
   async function callApi(id){
+    
     try {
       let response = await fetch(`https://dummyjson.com/products/${id}`)
       response = await response.json()
@@ -139,10 +143,10 @@ export default function ProductDetailsPage({product}) {
                         </div>
                       </div>
                       <div className="action">
-                        <a className="btn" href="#">
+                        <Link className="btn" onClick={()=>{dispatch(AddToCard(product && productDetail?productDetail:productDetail))}}>
                           <i className="fa fa-shopping-cart" />
                           Add to Cart
-                        </a>
+                        </Link>
                         <a className="btn" href="#">
                           <i className="fa fa-shopping-bag" />
                           Buy Now

@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux"
+import { Link } from "react-router-dom"
 
 export default function BottomBar() {
    const cartCount = useSelector((store)=>store.cartData.value)
@@ -25,14 +26,14 @@ export default function BottomBar() {
                         </div>
                         <div className="col-md-3">
                             <div className="user">
-                                <a href="wishlist.html" className="btn wishlist">
+                                <Link to="/wishlist" className="btn wishlist">
                                     <i className="fa fa-heart" />
                                     <span>(0)</span>
-                                </a>
-                                <a href="cart.html" className="btn cart">
+                                </Link>
+                                <Link to="/cart" className="btn cart">
                                     <i className="fa fa-shopping-cart" />
                                     <span>({cartCount.length})</span>
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </div>

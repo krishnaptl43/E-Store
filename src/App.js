@@ -19,7 +19,7 @@ import { AddData } from './redux/strSlice';
 function App() {
    const dispatch = useDispatch()
   const [allProducts, setAllProducts] = useState()
-  let str = useSelector((state)=>state.strData.value)
+ 
 
   function apiCall() {
     fetch("https://dummyjson.com/products", {
@@ -37,8 +37,6 @@ function App() {
   // console.log(allProducts);
   return (
     <>
-     <h1>{str}</h1>
-     <input type='text' placeholder='enter your task' onChange={(e)=>{dispatch(AddData(e.target.value))}}/>
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route index element={<HomePage />} />
