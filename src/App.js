@@ -1,4 +1,4 @@
-import { Route, Routes} from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Layout from './components/Layout';
 import HomePage from './pages/HomePage';
@@ -12,14 +12,15 @@ import LoginPage from './pages/LoginPage';
 import ContactUsPage from './pages/contactPage/ContactUsPage';
 import SignUpPage from './pages/SignUpPage';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AddData } from './redux/strSlice';
+import { useDispatch } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
-   const dispatch = useDispatch()
+  const dispatch = useDispatch()
   const [allProducts, setAllProducts] = useState()
- 
+
 
   function apiCall() {
     fetch("https://dummyjson.com/products", {
@@ -27,12 +28,12 @@ function App() {
       headers: {
         "Accept": "*/*"
       },
-    }).then((data) =>data.json()).then((data) => { setAllProducts(data) }).catch((e) => { console.log(e) })
+    }).then((data) => data.json()).then((data) => { setAllProducts(data) }).catch((e) => { console.log(e) })
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     apiCall()
-  },[])
+  }, [])
 
   // console.log(allProducts);
   return (
@@ -51,6 +52,7 @@ function App() {
           <Route path='/signup' element={<SignUpPage />} />
         </Route>
       </Routes>
+      <ToastContainer theme='dark'  />
     </>
   );
 }

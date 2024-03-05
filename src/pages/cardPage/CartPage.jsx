@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { DeleteItemToCart } from '../../redux/cartSlice'
+import { DeleteItemToCart, updateQuantity } from '../../redux/cartSlice'
 
 export default function CartPage() {
   const dispatch = useDispatch()
   let CartData = useSelector((store)=>store.cartData.value)
+  const [qty,setQty] = useState()
+  console.log(CartData);
+
   return (
     <>
       {/* Cart Start */}
@@ -38,16 +41,16 @@ export default function CartPage() {
                         <td>${item?.price}</td>
                         <td>
                           <div className="qty">
-                            <button className="btn-minus">
+                            <button className="btn-minus" onClick={()=>{dispatch(updateQuantity({type:"decrement",id:item?.id}))}}>
                               <i className="fa fa-minus" />
                             </button>
-                            <input type="text" defaultValue={1} />
-                            <button className="btn-plus">
+                            <input type="text" value={item?.quantity} />
+                            <button className="btn-plus" onClick={()=>{dispatch(updateQuantity({type:"increment",id:item?.id}))}}>
                               <i className="fa fa-plus" />
                             </button>
                           </div>
                         </td>
-                        <td>${item?.price}</td>
+                        <td>${(item?.price*item?.quantity)}</td>
                         <td>
                           <button onClick={()=>{dispatch(DeleteItemToCart(item.id))}}>
                             <i className="fa fa-trash" />
@@ -80,7 +83,7 @@ export default function CartPage() {
                           Shipping Cost<span>$1</span>
                         </p>
                         <h2>
-                          Grand Total<span>$100</span>
+                          Grand Total<span>${CartData?.reduce((current,item)=>current+item?.price,0)+1}</span>
                         </h2>
                       </div>
                       <div className="cart-btn">
