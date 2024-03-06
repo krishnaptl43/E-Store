@@ -99,18 +99,6 @@ export default function ProductDetailsPage({product}) {
                           {productDetail?.stock} left
                         </p>
                       </div>
-                      <div className="quantity">
-                        <h4>Quantity:</h4>
-                        <div className="qty">
-                          <button className="btn-minus">
-                            <i className="fa fa-minus" />
-                          </button>
-                          <input type="text" defaultValue={1} />
-                          <button className="btn-plus">
-                            <i className="fa fa-plus" />
-                          </button>
-                        </div>
-                      </div>
                       <div className="p-size">
                         <h4>Size:</h4>
                         <div className="btn-group btn-group-sm">
@@ -147,10 +135,6 @@ export default function ProductDetailsPage({product}) {
                           <i className="fa fa-shopping-cart" />
                           Add to Cart
                         </Link>
-                        <a className="btn" href="#">
-                          <i className="fa fa-shopping-bag" />
-                          Buy Now
-                        </a>
                       </div>
                     </div>
                   </div>

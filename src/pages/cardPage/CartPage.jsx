@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { DeleteItemToCart, updateQuantity } from '../../redux/cartSlice'
 
 export default function CartPage() {
   const dispatch = useDispatch()
   let CartData = useSelector((store)=>store.cartData.value)
-  const [qty,setQty] = useState()
+  const totalPrice = CartData?.reduce((curr,item)=>curr+item.price*item.quantity,0)
   console.log(CartData);
 
   return (
@@ -77,13 +77,13 @@ export default function CartPage() {
                       <div className="cart-content">
                         <h1>Cart Summary</h1>
                         <p>
-                          Sub Total<span>${CartData?.reduce((current,item)=>current+item?.price,0)}</span>
+                          Sub Total<span>${totalPrice}</span>
                         </p>
                         <p>
                           Shipping Cost<span>$1</span>
                         </p>
                         <h2>
-                          Grand Total<span>${CartData?.reduce((current,item)=>current+item?.price,0)+1}</span>
+                          Grand Total<span>${totalPrice+1}</span>
                         </h2>
                       </div>
                       <div className="cart-btn">

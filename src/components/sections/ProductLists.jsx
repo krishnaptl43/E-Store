@@ -3,7 +3,6 @@ import { getFilter } from "../../helper/helper";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { AddToCard } from "../../redux/cartSlice";
-import { toast } from 'react-toastify';
 
 export default function ProductLists({product}) {
     const dispatch = useDispatch()
@@ -91,7 +90,7 @@ export default function ProductLists({product}) {
                                                 <img src={item?.thumbnail} style={{height:"160px",width:"100%"}} alt="Product Image" />
                                             </a>
                                             <div className="product-action">
-                                                <Link  onClick={()=>{dispatch(AddToCard(item));toast.success("Product Add to Card Successfully")}}><i className="fa fa-cart-plus"></i></Link>
+                                                <Link  onClick={()=>{dispatch(AddToCard(item))}}><i className="fa fa-cart-plus"></i></Link>
                                                 <a href="#"><i className="fa fa-heart"></i></a>
                                                 <a href="#"><i className="fa fa-search"></i></a>
                                             </div>
