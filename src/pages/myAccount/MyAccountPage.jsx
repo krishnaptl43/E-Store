@@ -1,6 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useTitle } from '../../customHook/customHooks'
 
 export default function MyAccountPage() {
+
+  const title = useTitle()
+
+    useEffect(() => {
+        title("My  Account")
+    }, [title])
   return (
     <>
       {/* My Account Start */}

@@ -15,6 +15,8 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ScrollTop from './components/ScrollTop';
+import PrivateRoute from './Routes/PrivateRoute';
 
 
 function App() {
@@ -38,6 +40,7 @@ function App() {
   // console.log(allProducts);
   return (
     <>
+      <ScrollTop />
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route index element={<HomePage />} />
@@ -45,14 +48,17 @@ function App() {
           <Route path='productdetails/:id' element={<ProductDetailsPage product={allProducts} />} />
           <Route path='/cart' element={<CartPage />} />
           <Route path='/wishlist' element={<WishListPage />} />
-          <Route path='/checkout' element={<CheckOutPage />} />
+
+          <Route path='/checkout' element={<PrivateRoute />}>
+            <Route index element={<CheckOutPage/>}/>
+          </Route>
           <Route path='/my-account' element={<MyAccountPage />} />
           <Route path='/login' element={<LoginPage />} />
           <Route path='/contact' element={<ContactUsPage />} />
           <Route path='/signup' element={<SignUpPage />} />
         </Route>
       </Routes>
-      <ToastContainer theme='dark'  />
+      <ToastContainer theme='dark' />
     </>
   );
 }

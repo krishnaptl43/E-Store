@@ -1,6 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useTitle } from '../../customHook/customHooks'
 
 export default function WishListPage() {
+
+  const title = useTitle()
+
+  useEffect(() => {
+    title("Wishlist")
+  }, [title])
   return (
     <>
       {/* Wishlist Start */}

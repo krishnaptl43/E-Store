@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { AddToCard } from '../../redux/cartSlice';
+import { useTitle } from '../../customHook/customHooks';
 
 export default function ProductDetailsPage({product}) {
+  const title = useTitle()
   const dispatch = useDispatch()
   const {products} = (product && product)?product:[];
   const {id} = useParams()
@@ -32,6 +34,11 @@ export default function ProductDetailsPage({product}) {
     let data = products?.filter((item)=>item.category===productDetail?.category && item.id !==productDetail?.id)
     setRelatedProducts(data)
   },[productDetail])
+
+
+    useEffect(() => {
+        title("Product Details")
+    }, [title])
 
   return (
     <>

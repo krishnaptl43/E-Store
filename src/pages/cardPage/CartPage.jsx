@@ -1,13 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { DeleteItemToCart, updateQuantity } from '../../redux/cartSlice'
+import { useTitle } from '../../customHook/customHooks'
 
 export default function CartPage() {
   const dispatch = useDispatch()
+  const title = useTitle()
   let CartData = useSelector((store)=>store.cartData.value)
   const totalPrice = CartData?.reduce((curr,item)=>curr+item.price*item.quantity,0)
   console.log(CartData);
 
+
+    useEffect(() => {
+        title("Cart")
+    }, [title])
   return (
     <>
       {/* Cart Start */}

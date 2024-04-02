@@ -1,6 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useTitle } from '../../customHook/customHooks'
 
 export default function CheckOutPage() {
+  const title = useTitle()
+
+  useEffect(() => {
+    title("Checkout")
+  }, [title])
+
   return (
     <>
       {/* Checkout Start */}
