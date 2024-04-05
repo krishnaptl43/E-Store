@@ -37,7 +37,7 @@ function App() {
     apiCall()
   }, [])
 
-  // console.log(allProducts);
+  console.log(allProducts);
   return (
     <>
       <ScrollTop />

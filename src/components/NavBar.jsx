@@ -1,6 +1,17 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 export default function NavBar() {
+
+    let location = useLocation()
+
+    const [userData, setUserData] = useState()
+
+    useEffect(() => {
+        let user = JSON.parse(localStorage.getItem("user_data"))
+        setUserData(user)
+    }, [location.pathname])
+
     return (
         <>
             {/* Nav Bar Start */}
@@ -61,21 +72,31 @@ export default function NavBar() {
                             </div>
                             <div className="navbar-nav ml-auto">
                                 <div className="nav-item dropdown">
-                                    <Link
-                                        to="#"
-                                        className="nav-link dropdown-toggle"
-                                        data-toggle="dropdown"
-                                    >
-                                        User Account
-                                    </Link>
-                                    <div className="dropdown-menu">
-                                        <Link to="#" className="dropdown-item">
-                                            Login
+                                    {userData ? <>
+                                        <Link
+                                            to="/my-account"
+                                            className="nav-link"
+                                        >
+                                            {userData.user_name}
                                         </Link>
-                                        <Link to="#" className="dropdown-item">
-                                            Register
+                                    </> : <>
+                                        <Link
+                                            to="#"
+                                            className="nav-link dropdown-toggle"
+                                            data-toggle="dropdown"
+                                        >
+                                            User Account
                                         </Link>
-                                    </div>
+                                        <div className="dropdown-menu">
+                                            <Link to="#" className="dropdown-item">
+                                                Login
+                                            </Link>
+                                            <Link to="#" className="dropdown-item">
+                                                Register
+                                            </Link>
+                                        </div>
+                                    </>}
+
                                 </div>
                             </div>
                         </div>

@@ -2,57 +2,108 @@ import React, { useEffect, useState } from 'react'
 import BreadCrumb from '../components/BreadCrumb'
 import { useTitle } from '../customHook/customHooks'
 import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 export default function LoginPage() {
 
+  const navigate = useNavigate()
+
   const title = useTitle()
-  const [userData,setUserData] = useState({
-    user_name:"",
-    email:"",
-    mobile:"",
-    password:"",
-    repassword : ""
+  const [userData, setUserData] = useState({
+    user_name: "",
+    email: "",
+    mobile: "",
+    password: "",
+    repassword: ""
   })
 
-  function getUserInfo(e){
-     const {name,value} = e.target
-      setUserData({...userData,[name]:value})
+
+  // for user register data  collect
+  function getUserInfo(e) {
+    const { name, value } = e.target
+    setUserData({ ...userData, [name]: value })
   }
 
-console.log(userData);
+  // user register function
+  async function RegisterUser(e) {
+    e.preventDefault()
+    if (userData.password !== userData.repassword) {
+      toast("password not match")
+    } else {
 
- async function RegisterUser(e){
-      e.preventDefault()
-      if(userData.password !== userData.repassword){
-         toast("password not match")
+      let Obj = { ...userData }
+
+      delete Obj.repassword
+      try {
+
+        let response = await fetch("http://localhost:8082/api/v1/user/register", {
+          method: "POST",
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify(userData)
+        })
+
+        response = await response.json()
+
+        if (response.status) {
+          e.target.reset()
+          toast(response.msg)
+        } else {
+          toast(response.msg)
+        }
+
+      } catch (error) {
+        console.log(error.message);
       }
-     delete userData.repassword
-     try {
 
-      let response = await fetch("http://localhost:8082/api/v1/user/register",{
-        method : "POST",
-        headers : {
-          'Content-Type':"application/json",
-          'Accept' : "*/*"
-        },
-        body : JSON.stringify(userData)
-      })
+    }
 
-      response = await response.json()
-    
-      if(!response.status){
-        toast("user registration failed")
-      }
+  }
 
+  // user login data collect
+
+  const [loginData, setLoginData] = useState({
+    email: "",
+    password: ""
+  })
+
+  function getLoginAData(e) {
+    const { name, value } = e.target
+    setLoginData({ ...loginData, [name]: value })
+  }
+
+  console.log(loginData);
+  // user login function 
+
+  async function loginUser(e) {
+    e.preventDefault()
+
+    try {
+     let response = await fetch("http://localhost:8082/api/v1/user/login",{
+      method : "POST",
+      headers : {
+        'Content-Type':'application/json'
+      },
+      body : JSON.stringify(loginData)
+     })
+     response = await response.json()
+    console.log(response);
+     if(response.status){
+      localStorage.setItem('user_data',JSON.stringify(response.data))
+      localStorage.setItem("id",response.data._id)
       toast(response.msg)
-
-      e.target.reset()
-     } catch (error) {
-      console.log(error.message);
+      navigate("/")
      }
-      
+
+    } catch (error) {
+      console.log(error);
+    }
+
 
   }
+
+
 
   useEffect(() => {
     title("Login")
@@ -76,6 +127,7 @@ console.log(userData);
                         placeholder="User Name"
                         name='user_name'
                         onChange={getUserInfo}
+                        required
                       />
                     </div>
                     <div className="col-md-6">
@@ -86,6 +138,7 @@ console.log(userData);
                         placeholder="E-mail"
                         name='email'
                         onChange={getUserInfo}
+                        required
                       />
                     </div>
                     <div className="col-md-6">
@@ -96,6 +149,7 @@ console.log(userData);
                         placeholder="Mobile No"
                         name='mobile'
                         onChange={getUserInfo}
+                        required
                       />
                     </div>
                     <div className="col-md-6">
@@ -106,6 +160,7 @@ console.log(userData);
                         placeholder="Password"
                         name='password'
                         onChange={getUserInfo}
+                        required
                       />
                     </div>
                     <div className="col-md-6">
@@ -116,6 +171,7 @@ console.log(userData);
                         placeholder="Password"
                         name='repassword'
                         onChange={getUserInfo}
+                        required
                       />
                     </div>
                     <div className="col-md-12">
@@ -127,6 +183,7 @@ console.log(userData);
             </div>
             <div className="col-lg-6">
               <div className="login-form">
+                <form onSubmit={loginUser}>
                 <div className="row">
                   <div className="col-md-6">
                     <label>E-mail / Username</label>
@@ -134,6 +191,9 @@ console.log(userData);
                       className="form-control"
                       type="text"
                       placeholder="E-mail / Username"
+                      onChange={getLoginAData}
+                      name='email'
+                      required
                     />
                   </div>
                   <div className="col-md-6">
@@ -142,6 +202,9 @@ console.log(userData);
                       className="form-control"
                       type="text"
                       placeholder="Password"
+                      onChange={getLoginAData}
+                      name='password'
+                      required
                     />
                   </div>
                   <div className="col-md-12">
@@ -160,6 +223,7 @@ console.log(userData);
                     <button className="btn">Submit</button>
                   </div>
                 </div>
+                </form>
               </div>
             </div>
           </div>

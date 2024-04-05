@@ -1,9 +1,16 @@
 import React, { useEffect } from 'react'
 import { useTitle } from '../../customHook/customHooks'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function MyAccountPage() {
 
   const title = useTitle()
+  const navigate = useNavigate()
+
+  function LogOut(){
+   localStorage.clear()
+   navigate('/')
+  }
 
     useEffect(() => {
         title("My  Account")
@@ -70,10 +77,10 @@ export default function MyAccountPage() {
                   <i className="fa fa-user" />
                   Account Details
                 </a>
-                <a className="nav-link" href="index.html">
+                <div className="nav-link" onClick={LogOut}>
                   <i className="fa fa-sign-out-alt" />
                   Logout
-                </a>
+                </div>
               </div>
             </div>
             <div className="col-md-9">

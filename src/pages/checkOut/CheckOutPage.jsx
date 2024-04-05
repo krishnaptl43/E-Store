@@ -1,12 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTitle } from '../../customHook/customHooks'
 
 export default function CheckOutPage() {
   const title = useTitle()
 
+  const [userData,setUserData] = useState()
+
   useEffect(() => {
     title("Checkout")
-  }, [title])
+    let data = JSON.parse(localStorage.getItem("user_data"))
+    setUserData(data)
+  }, [])
 
   return (
     <>
@@ -16,6 +20,7 @@ export default function CheckOutPage() {
           <div className="row">
             <div className="col-lg-8">
               <div className="checkout-inner">
+                <form>
                 <div className="billing-address">
                   <h2>Billing Address</h2>
                   <div className="row">
@@ -25,14 +30,8 @@ export default function CheckOutPage() {
                         className="form-control"
                         type="text"
                         placeholder="First Name"
-                      />
-                    </div>
-                    <div className="col-md-6">
-                      <label>Last Name"</label>
-                      <input
-                        className="form-control"
-                        type="text"
-                        placeholder="Last Name"
+                        defaultValue={userData?.user_name}
+                        readOnly
                       />
                     </div>
                     <div className="col-md-6">
@@ -41,6 +40,8 @@ export default function CheckOutPage() {
                         className="form-control"
                         type="text"
                         placeholder="E-mail"
+                        defaultValue={userData?.email}
+                        readOnly
                       />
                     </div>
                     <div className="col-md-6">
@@ -49,6 +50,8 @@ export default function CheckOutPage() {
                         className="form-control"
                         type="text"
                         placeholder="Mobile No"
+                        defaultValue={userData?.mobile}
+                        readOnly
                       />
                     </div>
                     <div className="col-md-12">
@@ -62,7 +65,7 @@ export default function CheckOutPage() {
                     <div className="col-md-6">
                       <label>Country</label>
                       <select className="custom-select">
-                        <option selected="">United States</option>
+                        <option defaultValue="india">India</option>
                         <option>Afghanistan</option>
                         <option>Albania</option>
                         <option>Algeria</option>
@@ -121,7 +124,8 @@ export default function CheckOutPage() {
                     </div>
                   </div>
                 </div>
-                <div className="shipping-address">
+                </form>
+                {/* <div className="shipping-address">
                   <h2>Shipping Address</h2>
                   <div className="row">
                     <div className="col-md-6">
@@ -198,7 +202,7 @@ export default function CheckOutPage() {
                       />
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="col-lg-4">
